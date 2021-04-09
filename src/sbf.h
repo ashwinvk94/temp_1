@@ -112,6 +112,7 @@
 #define SBF_ID_PVTGeodetic    4007
 #define SBF_ID_ChannelStatus  4013
 #define SBF_ID_VelCovGeodetic 5908
+#define SBF_ID_AttEuler 5938
 
 /*** SBF protocol binary message and payload definitions ***/
 #pragma pack(push, 1)
@@ -261,6 +262,45 @@ typedef struct {
 	uint16_t pvt_info;
 } sbf_payload_channel_state_info_t;
 
+typedef struct {
+	uint8_t  error;     		/**Bit field providing error information. For each antenna baseline, two
+
+									bits are used to provide error information:
+									Bits 0-1: Error code for Main-Aux1 baseline:
+									0: No error
+									1: Not enough measurements
+									2: Reserved
+									3: Reserved
+									Bits 2-3: Error code for Main-Aux2 baseline, same definition as bit 0-1.
+									Bits 4-6: Reserved
+									Bit 7: Set when GNSS-based attitude not requested by user. In that
+									case, the other bits are all zero.*/
+
+	uint16_t  mode;   			/**Attitude mode code:
+									0: No attitude
+									1: Heading, pitch (roll = 0), aux antenna positions obtained with float
+									ambiguities
+									2: Heading, pitch (roll = 0), aux antenna positions obtained with fixed
+									Ambiguities
+
+									3: Heading, pitch, roll, aux antenna positions obtained with float am-
+									biguities
+
+									4: Heading, pitch, roll, aux antenna positions obtained with fixed am-
+									biguities*/
+	uint16_t  reserved; 		/**Reserved for future use, to be ignored by decoding software*/
+
+	float  heading;        		/**Heading*/
+	float  pitch;        		/**Pitch*/
+	float  roll;        		/**Roll*/
+	float  pitchRate;        	/**Rate of change of the pitch angle*/
+	float  heading;        		/**Rate of change of the roll angle*/
+	float  heading;        		/**Rate of change of the heading angle*/
+	
+	uint8_t  pading;        	/**Padding bytes, see 4.1.5*/
+
+} sbf_payload_att_euler_t;
+
 /* General message and payload buffer union */
 
 typedef struct {
@@ -289,6 +329,7 @@ uint8_t msg_revision:
 		sbf_payload_pvt_geodetic_t  payload_pvt_geodetic;
 		sbf_payload_vel_cov_geodetic_t payload_vel_col_geodetic;
 		sbf_payload_dop_t payload_dop;
+		sbf_payload_att_euler_t payload_att_euler;
 	};
 
 	uint8_t padding[16];
