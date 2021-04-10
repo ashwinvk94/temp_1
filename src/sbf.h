@@ -104,6 +104,9 @@
 #define SBF_CONFIG_RESET_COLD "" \
 	SBF_CONFIG_FORCE_INPUT"ExeResetReceiver, hard, SatData\n"
 
+#define SBF_CONFIG_ATTITUDE_OFFSET "setAttitudeOffset, -90, 0\n"
+
+
 #define SBF_SYNC1 0x24
 #define SBF_SYNC2 0x40
 
