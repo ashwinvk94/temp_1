@@ -106,6 +106,8 @@
 
 #define SBF_CONFIG_ATTITUDE_OFFSET "setAttitudeOffset, -90, 0\n"
 
+#define SBF_CONFIG_SAVE_CONFIG "exeCopyConfigFile, Current, Boot\n"
+
 
 #define SBF_SYNC1 0x24
 #define SBF_SYNC2 0x40

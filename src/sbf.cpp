@@ -164,6 +164,8 @@ GPSDriverSBF::configure(unsigned &baudrate, const GPSConfig &config)
 
 	// set attitude offset params
 	sendMessageAndWaitForAck(SBF_CONFIG_ATTITUDE_OFFSET, SBF_CONFIG_TIMEOUT);
+	// save the current configuration into non-volatile memory
+	sendMessageAndWaitForAck(SBF_CONFIG_SAVE_CONFIG, SBF_CONFIG_TIMEOUT);
 
 	_configured = true;
 	return 0;
