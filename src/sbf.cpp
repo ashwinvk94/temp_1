@@ -535,6 +535,12 @@ GPSDriverSBF::payloadRxDone()
 		_gps_position->hdop = _buf.payload_dop.hDOP * 0.01f;
 		_gps_position->vdop = _buf.payload_dop.vDOP * 0.01f;
 		break;
+	case SBF_ID_AttEuler:
+		SBF_TRACE_RXMSG("Rx AttEuler");
+		_msg_status |= 8;
+		_gps_position->roll = _buf.sbf_payload_att_euler_t.roll;
+		_gps_position->pitch = _buf.sbf_payload_att_euler_t.pitch;
+		_gps_position->heading = _buf.sbf_payload_att_euler_t.heading;
 
 	default:
 		break;
