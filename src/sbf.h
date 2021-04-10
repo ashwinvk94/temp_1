@@ -299,10 +299,10 @@ typedef struct {
 	float  pitch;        		/**Pitch*/
 	float  roll;        		/**Roll*/
 	float  pitchRate;        	/**Rate of change of the pitch angle*/
-	float  heading;        		/**Rate of change of the roll angle*/
-	float  heading;        		/**Rate of change of the heading angle*/
+	float  rollRate;        		/**Rate of change of the roll angle*/
+	float  headingRate;        		/**Rate of change of the heading angle*/
 	
-	uint8_t  pading;        	/**Padding bytes, see 4.1.5*/
+	uint8_t  padding;        	/**Padding bytes, see 4.1.5*/
 
 } sbf_payload_att_euler_t;
 
